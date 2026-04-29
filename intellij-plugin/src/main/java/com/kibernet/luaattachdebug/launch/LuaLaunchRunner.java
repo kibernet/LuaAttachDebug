@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.launch;
+package com.kibernet.LuaAttachDebug.launch;
 
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.RunProfile;
@@ -7,11 +7,12 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.execution.ui.RunContentDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.xdebugger.*;
+import com.kibernet.LuaAttachDebug.util.DebugApiCompat;
 import com.tang.intellij.lua.debugger.LuaRunner;
 import org.jetbrains.annotations.NotNull;
 
 public final class LuaLaunchRunner extends LuaRunner {
-    public static final String ID = "luaattachdebug.launch.runner";
+    public static final String ID = "LuaAttachDebug.launch.runner";
     private LuaLaunchDebugConfiguration configuration;
     @Override public String getRunnerId() { return ID; }
     @Override public boolean canRun(String executorId, RunProfile runProfile) {
@@ -20,9 +21,9 @@ public final class LuaLaunchRunner extends LuaRunner {
     }
     @Override protected RunContentDescriptor doExecute(RunProfileState state, ExecutionEnvironment environment) throws ExecutionException {
         Project project = environment.getProject();
-        XDebugSession session = XDebuggerManager.getInstance(project).startSession(environment, new XDebugProcessStarter() {
+        XDebugSession session = DebugApiCompat.startSession(project, environment, new XDebugProcessStarter() {
             @Override public @NotNull XDebugProcess start(@NotNull XDebugSession session) { return new LuaLaunchDebugProcess(session, configuration, project); }
         });
-        return session.getRunContentDescriptor();
+        return DebugApiCompat.resolveDescriptor(session);
     }
 }

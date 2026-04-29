@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.attach;
+package com.kibernet.LuaAttachDebug.attach;
 
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
@@ -31,9 +31,10 @@ public final class LuaAttachDebugConfiguration extends LuaRunConfiguration imple
     public void setProcessName(String processName) { this.processName = processName == null ? "" : processName; }
     public String getEncoding() { return encoding; }
     public void setEncoding(String encoding) { this.encoding = encoding == null || encoding.isBlank() ? "gbk" : encoding; }
+    @SuppressWarnings("unchecked")
     @Override public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
-        SettingsEditorGroup group = new SettingsEditorGroup();
-        group.addEditor("emmy", new LuaAttachDebugSettingsPanel());
+        SettingsEditorGroup<RunConfiguration> group = new SettingsEditorGroup<>();
+        group.addEditor("emmy", (SettingsEditor<RunConfiguration>) (SettingsEditor<?>) new LuaAttachDebugSettingsPanel());
         return group;
     }
     @Override public RunProfileState getState(Executor executor, ExecutionEnvironment environment) { return new LuaCommandLineState(environment); }

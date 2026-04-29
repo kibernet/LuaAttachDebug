@@ -1,11 +1,13 @@
-package com.kibernet.luaattachdebug.attach;
+package com.kibernet.LuaAttachDebug.attach;
 
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.process.OSProcessHandler;
+import com.intellij.execution.process.ProcessEvent;
+import com.intellij.execution.process.ProcessListener;
 import com.intellij.execution.process.ProcessOutputTypes;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.util.Key;
-import com.kibernet.luaattachdebug.util.FileUtils;
+import com.kibernet.LuaAttachDebug.util.FileUtils;
 import com.tang.intellij.lua.debugger.LogConsoleType;
 import com.tang.intellij.lua.debugger.emmy.EmmyDebugProcessBase;
 
@@ -18,8 +20,11 @@ public final class AttachSupport {
         commandLine.addParameters("attach", "-p", String.valueOf(pid), "-dir", path, "-dll", "emmy_hook.dll");
         try {
             OSProcessHandler handler = new OSProcessHandler(commandLine);
-            handler.addProcessListener(new com.intellij.execution.process.ProcessAdapter() {
-                @Override public void onTextAvailable(com.intellij.execution.process.ProcessEvent event, Key outputType) {
+            handler.addProcessListener(new ProcessListener() {
+                @Override public void processTerminated(ProcessEvent event) {}
+                @Override public void processWillTerminate(ProcessEvent event, boolean willBeDestroyed) {}
+                @Override public void startNotified(ProcessEvent event) {}
+                @Override public void onTextAvailable(ProcessEvent event, Key outputType) {
                     ConsoleViewContentType type = outputType == ProcessOutputTypes.STDERR ? ConsoleViewContentType.ERROR_OUTPUT : ConsoleViewContentType.SYSTEM_OUTPUT;
                     process.print(event.getText(), LogConsoleType.NORMAL, type);
                 }

@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.attach;
+package com.kibernet.LuaAttachDebug.attach;
 
 public enum LuaAttachMode {
     Pid("Pid"), ProcessName("ProcessName");

@@ -1,25 +1,22 @@
-# Lua Attach Debug
+# LuaAttachDebug 插件
 
-Lua Attach Debug 是面向 JetBrains IDE、VS Code 和 Cursor 的 Lua 进程附加调试插件工程，版本号为 `1.0.0`，包名为 `com.kibernet.luaattachdebug`。
+LuaAttachDebug 是一个面向 JetBrains IDE、VS Code 和 Cursor 的 Windows Lua 进程附加调试工具。它可以从 IDE/编辑器中选择目标进程、按 PID 附加，或启动 Lua 程序后自动注入调试 Hook，适合本地 Lua 程序调试和工具链集成。
 
-- `intellij-plugin`: JetBrains IntelliJ Platform 插件源码，依赖 Lua 调试基础插件提供调试协议能力。
-- `vscode-plugin`: VS Code/Cursor 插件源码，封装 Windows Emmy 调试工具。
+本项目采用多模块结构，同时维护在两套主流生态下运行的独立插件：
 
-## 构建
+- **IntelliJ 插件 (`intellij-plugin`)**: 支持 JetBrains 平台产品（IDEA, WebStorm, PyCharm, etc.）
+- **VS Code 插件 (`vscode-plugin`)**: 支持 VS Code、Cursor 等基于 VS Code 架构的编辑器
 
-```bat
-build.bat
-```
+## 📥 插件市场 (Marketplace)
 
-构建产物：
+### 1. JetBrains IDEA (IntelliJ 平台)
+https://plugins.jetbrains.com/author/me
 
-- IntelliJ: `intellij-plugin/build/distributions/*.zip`
-- VS Code: `vscode-plugin/luaattachdebug-1.0.0.vsix`
+### 2. Visual Studio Code
+https://marketplace.visualstudio.com/manage/publishers/kibernet
 
-## 运行限制
+### 3. Cursor
+https://open-vsx.org/
 
-当前原生调试工具仅支持 Windows。IntelliJ 版本复用外部 Lua 调试协议实现；VS Code 版本负责启动、注入并输出连接端口，完整断点、变量、调用栈体验需要 VS Code 侧已有兼容 Lua 调试协议的调试适配器配合。
-
-## 开源协议
-
-本工程使用 [Apache License 2.0](./LICENSE)。
+## 📄 开源协议
+本插件基于 [Apache License 2.0](./intellij-plugin/LICENSE) 开源。

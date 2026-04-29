@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.util;
+package com.kibernet.LuaAttachDebug.util;
 
 import java.util.Objects;
 

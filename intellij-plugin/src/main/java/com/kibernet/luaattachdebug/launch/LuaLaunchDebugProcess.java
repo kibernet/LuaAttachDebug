@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.launch;
+package com.kibernet.LuaAttachDebug.launch;
 
 import com.google.gson.Gson;
 import com.intellij.execution.configurations.GeneralCommandLine;
@@ -7,8 +7,8 @@ import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
 import com.intellij.xdebugger.XDebugSession;
-import com.kibernet.luaattachdebug.attach.AttachSupport;
-import com.kibernet.luaattachdebug.util.FileUtils;
+import com.kibernet.LuaAttachDebug.attach.AttachSupport;
+import com.kibernet.LuaAttachDebug.util.FileUtils;
 import com.tang.intellij.lua.debugger.DebugLogger;
 import com.tang.intellij.lua.debugger.LogConsoleType;
 import com.tang.intellij.lua.debugger.emmy.*;
@@ -55,9 +55,15 @@ public final class LuaLaunchDebugProcess extends EmmyDebugProcessBase {
         attachTo(pid); Thread.sleep(300L); BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream())); writer.write("connected"); writer.flush();
     }
     private void addConsoleForwarder(OSProcessHandler handler) {
-        handler.addProcessListener(new ProcessAdapter() { @Override public void onTextAvailable(ProcessEvent event, Key outputType) {
-            ConsoleViewContentType type = outputType == ProcessOutputTypes.STDERR ? ConsoleViewContentType.ERROR_OUTPUT : ConsoleViewContentType.SYSTEM_OUTPUT; print(event.getText(), LogConsoleType.NORMAL, type);
-        }});
+        handler.addProcessListener(new ProcessListener() {
+            @Override public void processTerminated(ProcessEvent event) {}
+            @Override public void processWillTerminate(ProcessEvent event, boolean willBeDestroyed) {}
+            @Override public void startNotified(ProcessEvent event) {}
+            @Override public void onTextAvailable(ProcessEvent event, Key outputType) {
+                ConsoleViewContentType type = outputType == ProcessOutputTypes.STDERR ? ConsoleViewContentType.ERROR_OUTPUT : ConsoleViewContentType.SYSTEM_OUTPUT;
+                print(event.getText(), LogConsoleType.NORMAL, type);
+            }
+        });
     }
     private static String quote(String value) { return '"' + (value == null ? "" : value) + '"'; }
     private static String displayName(String program) { Matcher matcher = Pattern.compile("[^/\\]+$").matcher(program == null ? "" : program); return matcher.find() ? matcher.group() : program; }

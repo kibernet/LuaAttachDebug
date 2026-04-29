@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.attach;
+package com.kibernet.LuaAttachDebug.attach;
 
 import com.google.gson.Gson;
 import com.intellij.execution.process.ProcessInfo;

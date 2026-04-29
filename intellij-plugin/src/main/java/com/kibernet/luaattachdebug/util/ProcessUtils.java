@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.util;
+package com.kibernet.LuaAttachDebug.util;
 
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.process.ProcessInfo;

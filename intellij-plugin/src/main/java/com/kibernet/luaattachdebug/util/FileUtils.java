@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.util;
+package com.kibernet.LuaAttachDebug.util;
 
 import com.intellij.openapi.application.PathManager;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class FileUtils {
-    public static final String PLUGIN_ID = "com.kibernet.luaattachdebug";
+    public static final String PLUGIN_ID = "com.kibernet.LuaAttachDebug";
     private static final Map<String, Path> EXTRACTED = new ConcurrentHashMap<>();
     private static final String[] NATIVE_FILES = {"EasyHook.dll", "emmy_core.dll", "emmy_hook.dll", "emmy_tool.exe"};
     private FileUtils() {}

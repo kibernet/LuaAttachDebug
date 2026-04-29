@@ -5,7 +5,7 @@ import { NativeTools, ProcessDetailInfo } from './nativeTools';
 let output: vscode.OutputChannel;
 
 export function activate(context: vscode.ExtensionContext) {
-    output = vscode.window.createOutputChannel('Lua Attach Debug');
+    output = vscode.window.createOutputChannel('LuaAttachDebug');
     const tools = new NativeTools(context, output);
     context.subscriptions.push(output);
 
@@ -52,7 +52,7 @@ function toQuickPickItem(process: ProcessDetailInfo): vscode.QuickPickItem & { p
 }
 
 function ensureWindows() {
-    if (process.platform !== 'win32') throw new Error('Lua Attach Debug native tools are Windows-only.');
+    if (process.platform !== 'win32') throw new Error('LuaAttachDebug native tools are Windows-only.');
 }
 
 function expandWorkspaceFolder(value: string): string {

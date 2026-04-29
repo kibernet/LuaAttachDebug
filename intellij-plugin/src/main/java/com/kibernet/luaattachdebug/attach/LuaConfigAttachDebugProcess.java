@@ -1,11 +1,11 @@
-package com.kibernet.luaattachdebug.attach;
+package com.kibernet.LuaAttachDebug.attach;
 
 import com.google.gson.Gson;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.xdebugger.XDebugSession;
-import com.kibernet.luaattachdebug.util.ProcessDetailInfo;
-import com.kibernet.luaattachdebug.util.ProcessUtils;
+import com.kibernet.LuaAttachDebug.util.ProcessDetailInfo;
+import com.kibernet.LuaAttachDebug.util.ProcessUtils;
 import com.tang.intellij.lua.debugger.DebugLogger;
 import com.tang.intellij.lua.debugger.LogConsoleType;
 import com.tang.intellij.lua.debugger.emmy.*;

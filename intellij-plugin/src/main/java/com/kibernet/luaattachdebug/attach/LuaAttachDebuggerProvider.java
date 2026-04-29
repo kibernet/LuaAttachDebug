@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.attach;
+package com.kibernet.LuaAttachDebug.attach;
 
 import com.intellij.execution.process.ProcessInfo;
 import com.intellij.openapi.project.Project;
@@ -8,8 +8,8 @@ import com.intellij.openapi.util.UserDataHolder;
 import com.intellij.xdebugger.attach.XAttachDebuggerProvider;
 import com.intellij.xdebugger.attach.XAttachHost;
 import com.intellij.xdebugger.attach.XLocalAttachDebugger;
-import com.kibernet.luaattachdebug.util.ProcessDetailInfo;
-import com.kibernet.luaattachdebug.util.ProcessUtils;
+import com.kibernet.LuaAttachDebug.util.ProcessDetailInfo;
+import com.kibernet.LuaAttachDebug.util.ProcessUtils;
 import java.util.*;
 
 public final class LuaAttachDebuggerProvider implements XAttachDebuggerProvider {

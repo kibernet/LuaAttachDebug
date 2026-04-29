@@ -1,5 +1,6 @@
 @echo off
 setlocal EnableExtensions
+chcp 65001 >nul
 set "ROOT_DIR=%~dp0"
 set "ROOT_DIR=%ROOT_DIR:~0,-1%"
 set "INTELLIJ_DIR=%ROOT_DIR%\intellij-plugin"
@@ -15,6 +16,11 @@ if not "%BUILD_CODE%"=="0" (
 )
 exit /b %BUILD_CODE%
 :main
+if defined GRADLE_OPTS (
+    set "GRADLE_OPTS=-Duser.language=en -Duser.country=US %GRADLE_OPTS%"
+) else (
+    set "GRADLE_OPTS=-Duser.language=en -Duser.country=US"
+)
 call :ensure_java || exit /b %ERRORLEVEL%
 echo ========================================
 echo Building intellij-plugin...
@@ -60,26 +66,60 @@ pause
 exit /b 0
 :ensure_java
 if defined JAVA_HOME (
+    echo [INFO] JAVA_HOME is currently set to: %JAVA_HOME%
+) else (
+    echo [INFO] JAVA_HOME is not set.
+)
+
+if defined JAVA_HOME (
     if exist "%JAVA_HOME%\bin\java.exe" (
         call :check_java "%JAVA_HOME%\bin\java.exe"
-        if not errorlevel 1 exit /b 0
+        if not errorlevel 1 (
+            call :print_java_version "%JAVA_HOME%\bin\java.exe"
+            exit /b 0
+        )
+        echo [WARN] JAVA_HOME points to Java below 21:
+        call :print_java_version "%JAVA_HOME%\bin\java.exe"
+    ) else (
+        echo [WARN] JAVA_HOME is set but java.exe was not found under %JAVA_HOME%\bin
     )
 )
-for /d %%J in ("C:\Program Files\Java\jdk-21*" "C:\Program Files\Eclipse Adoptium\jdk-21*" "C:\Program Files\Microsoft\jdk-21*" "C:\Program Files\Amazon Corretto\jdk-21*" "C:\Program Files\Java\jdk-17*" "C:\Program Files\Eclipse Adoptium\jdk-17*" "C:\Program Files\Microsoft\jdk-17*" "C:\Program Files\Amazon Corretto\jdk-17*") do (
+for /d %%J in ("C:\Program Files\Java\jdk-21*" "C:\Program Files\Eclipse Adoptium\jdk-21*" "C:\Program Files\Microsoft\jdk-21*" "C:\Program Files\Amazon Corretto\jdk-21*") do (
     if exist "%%~fJ\bin\java.exe" (
         call :check_java "%%~fJ\bin\java.exe"
-        if not errorlevel 1 (set "JAVA_HOME=%%~fJ" & goto :java_found)
+        if not errorlevel 1 (
+            set "JAVA_HOME=%%~fJ"
+            goto :java_found
+        )
     )
 )
-echo [ERROR] No valid JDK 17+ installation was found.
-echo [HINT] Install JDK 21 or JDK 17, or set JAVA_HOME to a valid JDK path.
+echo [ERROR] No valid JDK 21+ installation was found.
+echo [HINT] Install JDK 21+, or set JAVA_HOME to a valid JDK 21+ path.
+call :print_java_diagnostics
 exit /b 1
 :java_found
 set "PATH=%JAVA_HOME%\bin;%PATH%"
+echo [INFO] Selected JDK: %JAVA_HOME%
+call :print_java_version "%JAVA_HOME%\bin\java.exe"
 exit /b 0
 :check_java
-"%~1" -version 2>&1 | findstr /r /c:"version \"1[7-9]\." /c:"version \"[2-9][0-9]\." >nul
+"%~1" -version 2>&1 | findstr /r /c:"version \"2[1-9]\." /c:"version \"[3-9][0-9]\." >nul
 if errorlevel 1 exit /b 1
+exit /b 0
+:print_java_version
+echo [INFO] java -version from "%~1"
+"%~1" -version 2>&1
+exit /b 0
+:print_java_diagnostics
+where java >nul 2>nul
+if errorlevel 1 (
+    echo [INFO] No java executable found in PATH.
+) else (
+    echo [INFO] java executable(s) found in PATH:
+    where java
+    echo [INFO] Active java -version from PATH:
+    java -version 2>&1
+)
 exit /b 0
 :ensure_node
 if defined LUAATTACHDEBUG_NODE_HOME (

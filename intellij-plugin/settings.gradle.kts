@@ -7,4 +7,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "luaattachdebug"
+rootProject.name = "LuaAttachDebug"

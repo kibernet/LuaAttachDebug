@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.attach;
+package com.kibernet.LuaAttachDebug.attach;
 
 import com.intellij.openapi.options.SettingsEditor;
 import javax.swing.*;

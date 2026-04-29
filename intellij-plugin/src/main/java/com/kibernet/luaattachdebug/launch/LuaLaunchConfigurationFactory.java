@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.launch;
+package com.kibernet.LuaAttachDebug.launch;
 
 import com.intellij.execution.configurations.ConfigurationType;
 import com.intellij.execution.configurations.RunConfiguration;

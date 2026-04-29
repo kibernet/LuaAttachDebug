@@ -1,4 +1,4 @@
-package com.kibernet.luaattachdebug.launch;
+package com.kibernet.LuaAttachDebug.launch;
 
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
@@ -31,9 +31,10 @@ public final class LuaLaunchDebugConfiguration extends LuaRunConfiguration imple
     public void setParameter(String parameter) { this.parameter = parameter == null ? "" : parameter; }
     public boolean getUseWindowsTerminal() { return useWindowsTerminal; }
     public void setUseWindowsTerminal(boolean useWindowsTerminal) { this.useWindowsTerminal = useWindowsTerminal; }
+    @SuppressWarnings("unchecked")
     @Override public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
-        SettingsEditorGroup group = new SettingsEditorGroup();
-        group.addEditor("emmy", new LuaLaunchDebugSettingsPanel());
+        SettingsEditorGroup<RunConfiguration> group = new SettingsEditorGroup<>();
+        group.addEditor("emmy", (SettingsEditor<RunConfiguration>) (SettingsEditor<?>) new LuaLaunchDebugSettingsPanel());
         return group;
     }
     @Override public RunProfileState getState(Executor executor, ExecutionEnvironment environment) { return new LuaCommandLineState(environment); }
