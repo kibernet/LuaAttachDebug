@@ -1,0 +1,15 @@
+<idea-plugin>
+    <id>com.kibernet.luaattachdebug</id>
+    <name>Lua Attach Debug</name>
+    <vendor url="https://github.com/kibernet/LuaAttachDebug">Kibernet</vendor>
+    <description><![CDATA[Attach or launch Windows Lua processes with the Lua native debugger hook. Requires the EmmyLua plugin.]]></description>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.tang</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <xdebugger.attachDebuggerProvider implementation="com.kibernet.luaattachdebug.attach.LuaAttachDebuggerProvider"/>
+        <programRunner implementation="com.kibernet.luaattachdebug.launch.LuaLaunchRunner"/>
+        <configurationType implementation="com.kibernet.luaattachdebug.launch.LuaLaunchConfigurationType"/>
+        <programRunner implementation="com.kibernet.luaattachdebug.attach.LuaAttachRunner"/>
+        <configurationType implementation="com.kibernet.luaattachdebug.attach.LuaAttachConfigurationType"/>
+    </extensions>
+</idea-plugin>

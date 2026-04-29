@@ -1,0 +1,32 @@
+# --- IntelliJ IDEA Plugin ---
+.gradle/
+.gradle-user-home/
+.intellijPlatform/
+build/
+.idea/
+*.iml
+run/
+build-last-log.txt
+
+# --- VS Code Plugin ---
+node_modules/
+out/
+dist/
+*.vsix
+*.tsbuildinfo
+.vscode-test/
+
+# --- Local tools ---
+.work/
+.tools/
+intellij-plugin/*.zip
+
+# --- OS / logs ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
