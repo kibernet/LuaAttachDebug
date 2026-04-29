@@ -33,8 +33,7 @@ intellijPlatform {
     buildSearchableOptions = false
     pluginConfiguration {
         ideaVersion {
-            sinceBuild = "251"
-            untilBuild = provider { "251.*" }
+            sinceBuild = "261"
         }
         changeNotes.set("""<ul><li>Initial 1.0.0 release with Windows Lua attach/launch debugging support.</li></ul>""")
     }

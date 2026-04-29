@@ -2,7 +2,7 @@
 
 版本：`1.0.0`
 
-Lua Attach Debug 为 JetBrains IntelliJ Platform 提供 Windows Lua 进程附加调试能力。插件依赖 EmmyLua 主插件 (`com.tang`) 提供 Lua 调试协议、运行配置基类和 UI 图标。
+Lua Attach Debug 为 JetBrains IntelliJ Platform 提供 Windows Lua 进程附加调试能力。插件依赖外部 Lua 调试基础能力提供调试协议、运行配置基类和 UI 图标。
 
 ## 功能
 
